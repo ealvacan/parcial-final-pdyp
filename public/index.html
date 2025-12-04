@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopa de Letras Multijugador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sopa de Letras Multijugador</h1>
+        </header>
+        
+        <main>
+            <!-- Pantalla de inicio -->
+            <section id="pantalla-inicio" class="pantalla activa">
+                <h2>Unirse a una Sala</h2>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="crear-sala">Crear Nueva Sala</button>
+                    <button class="tab-btn" data-tab="unirse-sala">Unirse a Sala Existente</button>
+                </div>
+                
+                <!-- Crear Sala -->
+                <div id="crear-sala" class="tab-content active">
+                    <div class="form-group">
+                        <label for="nombre-creador">Tu nombre:</label>
+                        <input type="text" id="nombre-creador" placeholder="Ingresa tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tema-crear">Tema:</label>
+                        <select id="tema-crear">
+                            <option value="animales">Animales</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="paises">Países</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="comida">Comida</option>
+                            <option value="peliculas">Películas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modo-juego-crear">Modo de Juego:</label>
+                        <select id="modo-juego-crear">
+                            <option value="clasico">Clásico</option>
+                            <option value="contrarreloj">Contrarreloj</option>
+                            <option value="cooperativo">Cooperativo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dificultad-crear">Dificultad:</label>
+                        <select id="dificultad-crear">
+                            <option value="facil">Fácil</option>
+                            <option value="medio" selected>Medio</option>
+                            <option value="dificil">Difícil</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avatar:</label>
+                        <div class="avatar-selector">
+                            <div class="avatar-option selected" data-avatar="default">
+                                <img src="avatars/default.png" alt="Default">
+                            </div>
+                            <div class="avatar-option" data-avatar="cat">
+                                <img src="avatars/cat.png" alt="Cat">
+                            </div>
+                            <div class="avatar-option" data-avatar="dog">
+                                <img src="avatars/dog.png" alt="Dog">
+                            </div>
+                            <div class="avatar-option" data-avatar="robot">
+                                <img src="avatars/robot.png" alt="Robot">
+                            </div>
+                            <div class="avatar-option" data-avatar="alien">
+                                <img src="avatars/alien.png" alt="Alien">
+                            </div>
+                            <div class="avatar-option" data-avatar="ninja">
+                                <img src="avatars/ninja.png" alt="Ninja">
+                            </div>
+                        </div>
+                        <input type="hidden" id="avatar-crear" value="default">
+                    </div>
+                    
+                    <button id="btn-crear-sala" class="btn">Crear Sala</button>
+                </div>
+                
+                <!-- Unirse a Sala -->
+                <div id="unirse-sala" class="tab-content">
+                    <div class="form-group">
+                        <label for="codigo-sala">Código de Sala:</label>
+                        <input type="text" id="codigo-sala" placeholder="Ingresa el código de la sala" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nombre-unirse">Tu nombre:</label>
+                        <input type="text" id="nombre-unirse" placeholder="Ingresa tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avatar:</label>
+                        <div class="avatar-selector">
+                            <div class="avatar-option selected" data-avatar="default">
+                                <img src="avatars/default.png" alt="Default">
+                            </div>
+                            <div class="avatar-option" data-avatar="cat">
+                                <img src="avatars/cat.png" alt="Cat">
+                            </div>
+                            <div class="avatar-option" data-avatar="dog">
+                                <img src="avatars/dog.png" alt="Dog">
+                            </div>
+                            <div class="avatar-option" data-avatar="robot">
+                                <img src="avatars/robot.png" alt="Robot">
+                            </div>
+                            <div class="avatar-option" data-avatar="alien">
+                                <img src="avatars/alien.png" alt="Alien">
+                            </div>
+                            <div class="avatar-option" data-avatar="ninja">
+                                <img src="avatars/ninja.png" alt="Ninja">
+                            </div>
+                        </div>
+                        <input type="hidden" id="avatar-unirse" value="default">
+                    </div>
+                    
+                    <button id="btn-unirse-sala" class="btn">Unirse a Sala</button>
+                </div>
+            </section>
+            
+            <!-- Modal para mostrar código de sala -->
+            <div id="modal-codigo-sala" class="modal">
+                <div class="modal-content">
+                    <h3>Sala Creada Exitosamente</h3>
+                    <p>Comparte este código con tus amigos para que se unan a la sala:</p>
+                    <div class="codigo-sala" id="codigo-sala-mostrar"></div>
+                    <div class="modal-buttons">
+                        <button id="btn-copiar-codigo" class="btn">Copiar Código</button>
+                        <button id="btn-ir-a-sala" class="btn">Ir a la Sala</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sala de espera -->
+            <section id="pantalla-sala" class="pantalla">
+                <h2>Sala: <span id="id-sala-mostrar"></span></h2>
+                <div class="info-sala">
+                    <p>Tema: <span id="tema-mostrar"></span></p>
+                    <p>Modo de Juego: <span id="modo-juego-mostrar"></span></p>
+                    <p>Dificultad: <span id="dificultad-mostrar"></span></p>
+                </div>
+                
+                <h3>Jugadores en la sala:</h3>
+                <ul id="lista-jugadores"></ul>
+                
+                <div class="mensaje-espera">
+                    <p>Esperando a que se unan más jugadores...</p>
+                    <p>El juego comenzará automáticamente cuando haya al menos 2 jugadores.</p>
+                </div>
+            </section>
+            
+            <!-- Pantalla de juego -->
+            <section id="pantalla-juego" class="pantalla">
+                <div class="juego-header">
+                    <div class="info-jugador">
+                        <img id="avatar-jugador" src="avatars/default.png" alt="Avatar" class="avatar-small">
+                        <span id="nombre-jugador-mostrar"></span>
+                        <span>Puntuación: <span id="puntuacion">0</span></span>
+                    </div>
+                    
+                    <div class="tiempo">
+                        Tiempo: <span id="tiempo-transcurrido">0</span>s
+                    </div>
+                </div>
+                
+                <div class="juego-contenido">
+                    <div class="tablero-container">
+                        <div id="tablero" class="tablero"></div>
+                        
+                        <div class="power-ups">
+                            <h3>Power-ups</h3>
+                            <div class="power-up">
+                                <button id="btn-pista" class="btn-power-up" data-tipo="pistas">
+                                    <span class="icon">💡</span> Pista (<span id="pistas-disponibles">2</span>)
+                                </button>
+                            </div>
+                            <div class="power-up">
+                                <button id="btn-tiempo" class="btn-power-up" data-tipo="tiempoExtra">
+                                    <span class="icon">⏱️</span> Tiempo Extra (<span id="tiempo-disponible">1</span>)
+                                </button>
+                            </div>
+                            <div class="power-up">
+                                <button id="btn-revelar" class="btn-power-up" data-tipo="revelar">
+                                    <span class="icon">👁️</span> Revelar Palabra (<span id="revelar-disponible">1</span>)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palabras-container">
+                        <h3>Palabras a encontrar:</h3>
+                        <ul id="lista-palabras"></ul>
+                        
+                        <div class="acciones">
+                            <button id="btn-resolver" class="btn">Resolver</button>
+                            <button id="btn-limpiar-seleccion" class="btn">Limpiar Selección</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <h3>Chat</h3>
+                    <div id="mensajes-chat" class="mensajes-chat"></div>
+                    <div class="chat-input">
+                        <input type="text" id="input-chat" placeholder="Escribe un mensaje...">
+                        <button id="btn-enviar-chat" class="btn">Enviar</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pantalla de resultados -->
+            <section id="pantalla-resultados" class="pantalla">
+                <div class="victoria-container">
+                    <h2>¡Juego Terminado!</h2>
+                    <div class="ganador-avatar">
+                        <img id="ganador-avatar" src="avatars/default.png" alt="Ganador">
+                    </div>
+                    <div class="ganador" id="ganador-nombre">¡Jugador es el ganador!</div>
+                    <div class="premio">🏆</div>
+                    <p>Puntuación: <span id="ganador-puntuacion">0</span></p>
+                    <p>Palabras encontradas: <span id="ganador-palabras">0</span></p>
+                </div>
+                
+                <div class="resultados-container">
+                    <h3>Tabla de Posiciones</h3>
+                    <table id="tabla-resultados">
+                        <thead>
+                            <tr>
+                                <th>Jugador</th>
+                                <th>Palabras Encontradas</th>
+                                <th>Puntuación</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <div class="acciones-resultados">
+                    <button id="btn-jugar-nuevamente" class="btn">Jugar Nuevamente</button>
+                    <button id="btn-salir" class="btn">Salir</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Elementos de audio (ocultos) -->
+    <audio id="sound-found" src="sounds/found.mp3"></audio>
+    <audio id="sound-powerup" src="sounds/powerup.mp3"></audio>
+    <audio id="sound-gameover" src="sounds/gameover.mp3"></audio>
+    <audio id="sound-background" src="sounds/background.mp3" loop></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

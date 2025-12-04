@@ -1,0 +1,512 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.pantalla {
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.pantalla.activa {
+    display: block;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+h3 {
+    color: #3498db;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Pestañas */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+    flex: 1;
+}
+
+.tab-btn.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal h3 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.codigo-sala {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.info-sala {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.info-sala p {
+    margin-bottom: 5px;
+}
+
+#lista-jugadores {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+#lista-jugadores li {
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.mensaje-espera {
+    text-align: center;
+    padding: 20px;
+    background-color: #e8f4fc;
+    border-radius: 5px;
+}
+
+.juego-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-jugador {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tiempo {
+    font-weight: 600;
+    color: #e74c3c;
+}
+
+.juego-contenido {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.tablero-container {
+    flex: 2;
+}
+
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    gap: 2px;
+    background-color: #3498db;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.celda {
+    aspect-ratio: 1;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    user-select: none;
+}
+
+.celda:hover {
+    background-color: #e8f4fc;
+}
+
+.celda.seleccionada {
+    background-color: #3498db;
+    color: white;
+}
+
+.celda.encontrada {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.celda.pista {
+    background-color: #f1c40f;
+}
+
+.power-ups {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-power-up {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #9b59b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-power-up:hover {
+    background-color: #8e44ad;
+}
+
+.btn-power-up:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+.palabras-container {
+    flex: 1;
+}
+
+#lista-palabras {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+#lista-palabras li {
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#lista-palabras li.encontrada {
+    background-color: #d4edda;
+    text-decoration: line-through;
+}
+
+.chat-container {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.mensajes-chat {
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.mensaje {
+    margin-bottom: 10px;
+}
+
+.mensaje .autor {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+}
+
+/* Pantalla de resultados */
+.victoria-container {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.ganador-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 4px solid #2ecc71;
+    overflow: hidden;
+}
+
+.ganador-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ganador {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2ecc71;
+    margin: 20px 0;
+}
+
+.premio {
+    font-size: 48px;
+    margin: 20px 0;
+}
+
+.resultados-container {
+    margin-bottom: 30px;
+}
+
+#tabla-resultados {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabla-resultados th, #tabla-resultados td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#tabla-resultados th {
+    background-color: #3498db;
+    color: white;
+}
+
+#tabla-resultados tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.acciones-resultados {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Selector de avatares */
+.avatar-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.avatar-option {
+    width: 60px;
+    height: 60px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.avatar-option:hover {
+    transform: scale(1.05);
+}
+
+.avatar-option.selected {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.avatar-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Avatares pequeños */
+.avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Notificaciones */
+.notificacion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.notificacion.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notificacion.error {
+    background-color: #e74c3c;
+}
+
+.notificacion.warning {
+    background-color: #f39c12;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .juego-contenido {
+        flex-direction: column;
+    }
+    
+    .tablero {
+        grid-template-columns: repeat(10, 1fr);
+    }
+    
+    .power-ups {
+        justify-content: center;
+    }
+    
+    .avatar-selector {
+        justify-content: center;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+}
